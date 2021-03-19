@@ -37,7 +37,7 @@ public class PeopleResource {
 
     @PostMapping
     public ResponseEntity<PeopleDTO> create(@RequestBody PeopleDTO dto, HttpServletResponse response) {
-        People people = service.save(dto);
+        People people = service.save(modelMapper.map(dto, People.class));
         publisher.publishEvent(new ResourceCreatedEvent(this, response, people.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(people, PeopleDTO.class));
     }

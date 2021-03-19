@@ -47,9 +47,7 @@ public class PeopleResourceTest {
     void shouldCreatePeople() throws Exception{
         String json = new ObjectMapper().writeValueAsString(createPeople());
 
-        BDDMockito.given( service.save(Mockito.any(PeopleDTO.class))).willReturn(
-                new ModelMapper().map(createPeople(), People.class)
-        );
+        BDDMockito.given( service.save(Mockito.any(People.class))).willReturn(new ModelMapper().map(createPeople(), People.class));
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)

@@ -17,8 +17,8 @@ public class PeopleService implements IPeopleService {
         this.repo = repo;
     }
 
-    public People save(PeopleDTO people) {
-        People createdPeople = repo.save(new ModelMapper().map(people, People.class));
+    public People save(People people) {
+        People createdPeople = repo.save(people);
         return createdPeople;
     }
 }
