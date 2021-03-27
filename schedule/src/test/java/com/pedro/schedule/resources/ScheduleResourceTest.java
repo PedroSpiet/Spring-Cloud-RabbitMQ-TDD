@@ -23,6 +23,10 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -60,6 +64,25 @@ public class ScheduleResourceTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("id").value(schedule.getId()))
                 .andExpect(MockMvcResultMatchers.jsonPath("name").value(schedule.getName()));
+    }
+
+    @Test
+    @DisplayName("Deve exibir todos da agenda")
+    void shouldReturnSchedules() throws Exception{
+        ScheduleDTO dto = ScheduleDTO.builder().id(1L).email("Teste@email.com").name("Jon Doe").tellphone(12345)
+                .build();
+
+        Schedule schedule = Schedule.builder().id(dto.getId()).email(dto.getEmail()).name(dto.getName())
+                .tellphone(dto.getTellphone()).build();
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(BASE_URL)
+                .accept(MediaType.APPLICATION_JSON);
+
+        List<Schedule> arr = Arrays.asList(schedule);
+
+        BDDMockito.given( service.findAll() ).willReturn(arr);
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
 

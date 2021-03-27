@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ScheduleService implements IScheduleService {
    ModelMapper modelMapper;
@@ -24,5 +26,10 @@ public class ScheduleService implements IScheduleService {
         Schedule schedule = modelMapper.map(scheduleDTO, Schedule.class);
         Schedule createdSchedule = repo.save(schedule);
         return createdSchedule;
+    }
+
+    @Override
+    public List<Schedule> findAll() {
+        return repo.findAll();
     }
 }
