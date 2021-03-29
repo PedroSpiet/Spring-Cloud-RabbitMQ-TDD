@@ -19,5 +19,14 @@ spring:
     url: jdbc:mysql://localhost:3306/Peoples?allowPublicKeyRetrieval=true&sslMode=DISABLED&useSSL=false&serverTimezone=UTC
     username: root
     password: docker
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+peoples:
+  rabbitmq:
+    exchange: peoples.exchange
+    routingkey: peoples.routingkey
 
 
