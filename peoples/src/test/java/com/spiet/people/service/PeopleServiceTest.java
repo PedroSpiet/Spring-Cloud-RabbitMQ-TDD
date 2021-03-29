@@ -2,6 +2,7 @@ package com.spiet.people.service;
 
 import com.spiet.people.DTOs.PeopleDTO;
 import com.spiet.people.entities.People;
+import com.spiet.people.messages.PeopleSendMessage;
 import com.spiet.people.repositories.PeopleRepository;
 import com.spiet.people.services.IPeopleService;
 import com.spiet.people.services.impl.PeopleService;
@@ -27,9 +28,11 @@ public class PeopleServiceTest {
     @MockBean
     PeopleRepository repository;
 
+    PeopleSendMessage psm;
+
     @BeforeEach
     public void setUp() {
-        this.service = new PeopleService(repository);
+        this.service = new PeopleService(repository, psm);
     }
 
     @Test
