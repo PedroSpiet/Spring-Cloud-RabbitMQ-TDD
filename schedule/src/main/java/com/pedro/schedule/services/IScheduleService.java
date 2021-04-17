@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface IScheduleService {
     Schedule create(ScheduleDTO scheduleDTO);
+
     List<Schedule> findAll();
 }

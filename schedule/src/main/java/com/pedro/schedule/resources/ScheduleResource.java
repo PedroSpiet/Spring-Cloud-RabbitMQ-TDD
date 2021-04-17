@@ -18,9 +18,9 @@ public class ScheduleResource {
 
     ModelMapper modelMapper;
 
-   IScheduleService service;
+    IScheduleService service;
 
-   @Autowired
+    @Autowired
     public ScheduleResource(ModelMapper modelMapper, IScheduleService service) {
         this.modelMapper = modelMapper;
         this.service = service;
@@ -36,7 +36,7 @@ public class ScheduleResource {
 
     @GetMapping
     public ResponseEntity<List<ScheduleDTO>> index() {
-       List<Schedule> schedule = service.findAll();
+        List<Schedule> schedule = service.findAll();
         List<ScheduleDTO> dto = new ArrayList<>();
         schedule.stream().map(x -> dto.add(modelMapper.map(x, ScheduleDTO.class)));
         return ResponseEntity.ok().body(dto);

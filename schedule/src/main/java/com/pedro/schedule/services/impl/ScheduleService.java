@@ -12,10 +12,10 @@ import java.util.List;
 
 @Service
 public class ScheduleService implements IScheduleService {
-   ModelMapper modelMapper;
-   ScheduleRepository repo;
+    ModelMapper modelMapper;
+    ScheduleRepository repo;
 
-   @Autowired
+    @Autowired
     public ScheduleService(ModelMapper modelMapper, ScheduleRepository repo) {
         this.modelMapper = modelMapper;
         this.repo = repo;

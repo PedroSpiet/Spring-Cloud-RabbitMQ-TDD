@@ -43,22 +43,22 @@ public class ScheduleResourceTest {
     @Test
     @DisplayName("Deve Cadastrar uma pessoa na agenda")
     void shouldAddUser() throws Exception {
-       ScheduleDTO dto = ScheduleDTO.builder().id(1L).email("Teste@email.com").name("Jon Doe").tellphone(12345)
-        .build();
+        ScheduleDTO dto = ScheduleDTO.builder().id(1L).email("Teste@email.com").name("Jon Doe").tellphone(12345)
+                .build();
 
-       Schedule schedule = Schedule.builder().id(dto.getId()).email(dto.getEmail()).name(dto.getName())
-               .tellphone(dto.getTellphone()).build();
+        Schedule schedule = Schedule.builder().id(dto.getId()).email(dto.getEmail()).name(dto.getName())
+                .tellphone(dto.getTellphone()).build();
 
-       String json = new ObjectMapper().writeValueAsString(dto);
+        String json = new ObjectMapper().writeValueAsString(dto);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(json);
 
-        BDDMockito.given( service.create(Mockito.any(ScheduleDTO.class)) )
+        BDDMockito.given(service.create(Mockito.any(ScheduleDTO.class)))
                 .willReturn(Schedule.builder().id(1L).email("JonDoe@email.com").name("Jon Doe")
-                .tellphone(12345).build());
+                        .tellphone(12345).build());
 
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -68,7 +68,7 @@ public class ScheduleResourceTest {
 
     @Test
     @DisplayName("Deve exibir todos da agenda")
-    void shouldReturnSchedules() throws Exception{
+    void shouldReturnSchedules() throws Exception {
         ScheduleDTO dto = ScheduleDTO.builder().id(1L).email("Teste@email.com").name("Jon Doe").tellphone(12345)
                 .build();
 
@@ -80,7 +80,7 @@ public class ScheduleResourceTest {
 
         List<Schedule> arr = Arrays.asList(schedule);
 
-        BDDMockito.given( service.findAll() ).willReturn(arr);
+        BDDMockito.given(service.findAll()).willReturn(arr);
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }

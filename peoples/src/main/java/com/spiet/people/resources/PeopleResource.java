@@ -32,7 +32,7 @@ public class PeopleResource {
     ApplicationEventPublisher publisher;
 
     ModelMapper modelMapper;
-    
+
     PagedResourcesAssembler<PeopleDTO> assembler;
 
     @Autowired
@@ -44,34 +44,34 @@ public class PeopleResource {
         this.assembler = assembler;
     }
 
-    @PostMapping(produces = {"application/json","application/xml","application/x-yaml"})
+    @PostMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<PeopleDTO> create(@RequestBody PeopleDTO dto, HttpServletResponse response) {
         People people = service.save(modelMapper.map(dto, People.class));
         publisher.publishEvent(new ResourceCreatedEvent(this, response, people.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(people, PeopleDTO.class));
     }
 
-    @GetMapping(produces = {"application/json","application/xml","application/x-yaml"})
+    @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<?> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
-                                             @RequestParam(value = "limit", defaultValue = "12") Integer limit,
-                                        @RequestParam(value = "direction", defaultValue = "asc") String direction) {
+                                     @RequestParam(value = "limit", defaultValue = "12") Integer limit,
+                                     @RequestParam(value = "direction", defaultValue = "asc") String direction) {
 
         var sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
 
-        Pageable pageable = PageRequest.of(page,limit, Sort.by(sortDirection,"name"));
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "name"));
 
         Page<PeopleDTO> peoples = service.findAll(pageable);
 
         peoples.stream().forEach(p ->
                 p.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PeopleResource.class)
-                        .findById(p.getId()) ).withSelfRel()));
+                        .findById(p.getId())).withSelfRel()));
 
         PagedModel<EntityModel<PeopleDTO>> pagedModel = assembler.toModel(peoples);
 
         return new ResponseEntity<>(pagedModel, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}",produces = {"application/json","application/xml","application/x-yaml"})
+    @GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<PeopleDTO> findById(@PathVariable Long id) {
         PeopleDTO people = modelMapper.map(service.findById(id), PeopleDTO.class);
         return ResponseEntity.ok().body(people);

@@ -41,9 +41,9 @@ public class PeopleServiceTest {
         People people = People.builder().id(1L).name("Jon Doe").email("Jon@email.com").tellphone(12345)
                 .build();
 
-        Mockito.when( service.save(Mockito.any(People.class)) ).thenReturn(
+        Mockito.when(service.save(Mockito.any(People.class))).thenReturn(
                 People.builder().id(people.getId()).name(people.getName()).email(people.getEmail())
-                .tellphone(people.getTellphone()).build());
+                        .tellphone(people.getTellphone()).build());
 
         People savedPeople = service.save(people);
 

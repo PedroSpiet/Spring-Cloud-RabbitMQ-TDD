@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface IPeopleService {
     People save(People people);
+
     Page<PeopleDTO> findAll(Pageable pageable);
+
     People findById(Long id);
 }

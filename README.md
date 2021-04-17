@@ -2,7 +2,8 @@
 
 ## 💻 Projeto
 
-Um Microserviço cadastra pessoas e envia essa pessoa cadastrada para outro serviço utilizando RabbitMQ e os serviços de Cloud do spring
+Um Microserviço cadastra pessoas e envia essa pessoa cadastrada para outro serviço utilizando RabbitMQ e os serviços de
+Cloud do spring
 
 ## :rocket: Conceitos e tecnologias
 

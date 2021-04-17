@@ -55,10 +55,10 @@ public class PeopleResourceTest {
 
     @Test
     @DisplayName("Deve cadastrar uma pessoa")
-    void shouldCreatePeople() throws Exception{
+    void shouldCreatePeople() throws Exception {
         String json = new ObjectMapper().writeValueAsString(createPeople());
 
-        BDDMockito.given( service.save(Mockito.any(People.class))).willReturn(new ModelMapper().map(createPeople(), People.class));
+        BDDMockito.given(service.save(Mockito.any(People.class))).willReturn(new ModelMapper().map(createPeople(), People.class));
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -76,7 +76,7 @@ public class PeopleResourceTest {
         PeopleDTO peopleDTO = createPeople();
         People convertPeople = new ModelMapper().map(peopleDTO, People.class);
 
-        BDDMockito.given( service.findById(peopleDTO.getId()) ).willReturn(convertPeople);
+        BDDMockito.given(service.findById(peopleDTO.getId())).willReturn(convertPeople);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(BASE_URL.concat("/" + convertPeople.getId()))
                 .accept(MediaType.APPLICATION_JSON);

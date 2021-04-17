@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ResourceCreatedEvent extends ApplicationEvent {
 
-    private  Long id;
-    private  HttpServletResponse response;
+    private Long id;
+    private HttpServletResponse response;
 
     public ResourceCreatedEvent(Object source, HttpServletResponse response, Long id) {
         super(source);
