@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/registry/eureka
+
+zuul:
+  prefix: /api
+  ignored-services: "*"
+
+  routes:
+    peoples:
+      path: /peoples/**
+      service-id: peoples
+      strip-prefix: false
+      custom-sensitive-header: true
+
+    schedule:
+      path: /schedule/**
+      service-id: schedule
+      strip-prefix: false
+      custom-sensitive-header: true
